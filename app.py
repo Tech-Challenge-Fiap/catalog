@@ -5,7 +5,7 @@ from flask_migrate import Migrate
 app = Flask(__name__)
 
 db_name = os.environ.get("POSTGRES_DB", "catalogdb")
-db_user = os.environ.get("POSTGRES_USER", "catalog")
+db_user = os.environ.get("POSTGRES_USER", "cataloguser")
 db_pass = os.environ.get("POSTGRES_PASSWORD", "catalogpass")
 db_host = os.environ.get("POSTGRES_SERVICE_HOST", "localhost")
 app.config[

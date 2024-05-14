@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: svcfiaptechchallenge
+  name: catalogsvc
   namespace: "default"
   labels:
-    app: flask-app
+    app: catalogsvc
 spec:
   type: LoadBalancer
   ports:
   - port: 5000
     targetPort: 5000
   selector:
-    app: fiaptechchallenge
+    app: catalogapp

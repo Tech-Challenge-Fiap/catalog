@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fiaptechchallenge
+  name: catalogapp
 spec:
   selector:
     matchLabels:
-      app: fiaptechchallenge
+      app: catalogapp
   replicas: 1
   template:
     metadata:
       labels:
-        app: fiaptechchallenge
+        app: catalogapp
     spec:
       containers:
-      - name: fiaptechchallenge
+      - name: catalogapp
         image: DOCKER_IMAGE
         resources:
           limits:
@@ -47,4 +47,4 @@ spec:
           - name: POSTGRES_PASSWORD
             value: VAL_POSTGRES_DB_PASSWORD
           - name: POSTGRES_SERVICE_HOST
-            value: VAL_POSTGRES_DB_HOST
+            value: VAL_POSTGRES_SERVICE_HOST
