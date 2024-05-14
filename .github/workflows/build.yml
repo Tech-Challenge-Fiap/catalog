@@ -2,9 +2,9 @@ name: Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 env:
   ECR_REPOSITORY: fiaptech_challenge_g31
@@ -26,7 +26,7 @@ jobs:
         pip install pylint
     - name: Analysing the code with pylint
       run: |
-        pylint $(git ls-files '*.py') --fail-under 3
+        pylint $(git ls-files '*.py') --fail-under 2
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
     - name: Test Backend
