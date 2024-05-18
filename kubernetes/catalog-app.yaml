@@ -1,20 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: catalogapp
+  name: catalog-app
 spec:
   selector:
     matchLabels:
-      app: catalogapp
+      app: catalog-app
   replicas: 1
   template:
     metadata:
       labels:
-        app: catalogapp
+        app: catalog-app
     spec:
+      initContainers:
+      - name: check-db-ready
+        image: postgres:13-alpine
+        command: ['sh', '-c', 
+          'until pg_isready -h catalog-postgres-svc -p 5432; 
+          do echo waiting for database; sleep 2; done;']
       containers:
-      - name: catalogapp
-        image: DOCKER_IMAGE
+      - name: catalog-app
+        image: barbosaleandro/catalog:latest
         resources:
           limits:
             memory: "128Mi"
@@ -41,10 +47,19 @@ spec:
           periodSeconds: 30
         env:
           - name: POSTGRES_DB
-            value: VAL_POSTGRES_DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: catalog-database-secret-config
+                key: dbname
           - name: POSTGRES_USER
-            value: VAL_POSTGRES_DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: catalog-database-secret-config
+                key: username
           - name: POSTGRES_PASSWORD
-            value: VAL_POSTGRES_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: catalog-database-secret-config
+                key: password
           - name: POSTGRES_SERVICE_HOST
-            value: VAL_POSTGRES_SERVICE_HOST
+            value: catalog-postgres-svc
