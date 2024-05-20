@@ -27,3 +27,4 @@ Werkzeug>=3.0.3
 basehash
 pyjwt==2.3.0
 pytest==8.2.1
+pylint==3.2.2
