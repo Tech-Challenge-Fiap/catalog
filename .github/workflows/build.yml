@@ -36,6 +36,7 @@ jobs:
         pylint $(git ls-files '*.py') --fail-under 2
     - name: Test Backend
       run: |
+        export TESTING=1
         coverage run --source=./system -m pytest
     - name: Export Coverage
       run: |
