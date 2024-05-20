@@ -1,0 +1,20 @@
+[run]
+omit =
+    /usr/lib/python3/dist-packages/cryptography/*
+    /usr/lib/python3/dist-packages/jwt/*
+    /usr/lib/python3/dist-packages/six.py
+
+[report]
+show_missing = True
+skip_covered = True
+
+[html]
+directory = htmlcov
+
+[exclude_lines]
+pragma: no cover
+    def __repr__
+    if self\.debug:
+    raise AssertionError
+    raise NotImplementedError
+if __name__ == .__main__.:

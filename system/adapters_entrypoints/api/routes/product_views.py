@@ -21,7 +21,7 @@ def create_product():
     try:
         product = products_usecase.CreateProductUseCase.execute(request=create_product_request)
     except ProductAlreadyExistsError:
-        return {"error": "This product already exists"}, 409
+        return {"error": "This product already exists"}, 400
     except InfrastructureError:
         return {"error": "Internal Error"}, 500
     return product.response
