@@ -27,17 +27,16 @@ jobs:
     needs: build
     steps:
     - uses: actions/checkout@v3
-    - name: Install Pylint and Coverage
+    - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pylint
-        pip install coverage
+        pip install -r requirements.txt
     - name: Analysing the code with pylint
       run: |
         pylint $(git ls-files '*.py') --fail-under 2
     - name: Test Backend
       run: |
-        coverage run --source=./system -m unittest discover -s tests -p 'test_*'
+        coverage run --source=./system -m pytest
     - name: Export Coverage
       run: |
         export CODACY_API_TOKEN=${{secrets.CODACY_API_TOKEN}}
@@ -47,7 +46,7 @@ jobs:
         coverage xml
         bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r coverage.xml
         
-  # codacy-security-scan:
+  # codacy-security-scan:coverage run -m pytest
   #   needs: build
   #   permissions:
   #     contents: read # for actions/checkout to fetch code
