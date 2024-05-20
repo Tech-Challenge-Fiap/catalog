@@ -3,6 +3,7 @@ omit =
     /usr/lib/python3/dist-packages/cryptography/*
     /usr/lib/python3/dist-packages/jwt/*
     /usr/lib/python3/dist-packages/six.py
+    tests/*
 
 [report]
 show_missing = True
